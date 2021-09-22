@@ -58,7 +58,7 @@ Once installed, check Docker version:
 
 # 6. Create Docker Network - springbankNet (We will put all our containers in the same network)
 
-docker network create --attachable -d overlay springbankNet
+`docker network create --attachable -d overlay jtech_springbanknet`
 
 # 7. Axon Platform
 
@@ -66,7 +66,7 @@ Run in Docker:
 ```bash
 docker run -d --name axon-server \
 -p 8024:8024 -p 8124:8124 \
---network springbankNet \
+--network jtech_springbanknet \
 --restart always axoniq/axonserver:latest
 ```
 Once installed, check if running:
@@ -77,7 +77,7 @@ http://localhost:8024/
 Run in Docker:
 ```bash
 docker run -it -d --name mongo-container \
--p 27017:27017 --network springbankNet \
+-p 27017:27017 --network jtech_springbanknet \
 --restart always \
 -v mongodb_data_container:/data/db \
 mongo:latest 
@@ -91,8 +91,8 @@ https://robomongo.org/download
 Run in Docker:
 ```bash
 docker run -it -d --name mysql-container \
--p 3306:3306 --network springbankNet \
--e MYSQL_ROOT_PASSWORD=springbankRootPsw \
+-p 3306:3306 --network jtech_springbanknet \
+-e MYSQL_ROOT_PASSWORD=root \
 --restart always \
 -v mysql_data_container:/var/lib/mysql  \
 mysql:latest
@@ -101,7 +101,7 @@ mysql:latest
 Client tools in Docker – Adminer:
 ```bash
 docker run -it -d --name adminer \
--p 8080:8080 --network springbankNet \
+-p 8080:8080 --network jtech_springbanknet \
  -e ADMINER_DEFAULT_SERVER=mysql-container \
 --restart always adminer:latest
 ```
